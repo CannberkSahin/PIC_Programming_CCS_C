@@ -1,0 +1,23 @@
+[PROJECT]
+Target=Led_Blinking_877.hex
+Processor_Text=PIC16F877
+CCSVerions=5.007
+Compiler=PCM
+CCSVersion=5.007
+[Target Data]
+FileList=Led_Blinking_877.c
+[Directories]
+Include=C:\Program Files (x86)\PICC\Devices\;C:\Program Files (x86)\PICC\Drivers\;C:\Users\canbe\OneDrive\Masaüstü\PIC_Programming_CCS(C)\Led_Blinking(PIC16F877)\PIC_C_Compiler\
+[C:\Users\canbe\OneDrive\Masaüstü\PIC_Programming_CCS(C)\Led_Blinking(PIC16F877)\PIC_C_Compiler\Led_Blinking_877]
+Type=4
+[mru-list]
+1=Led_Blinking_877.c
+[Opened Files]
+1=Led_Blinking_877.c
+2=Led_Blinking_877.h
+3=
+[Led_Blinking_877.c]
+Type=4
+[Units]
+Count=1
+1=Led_Blinking_877 (main)

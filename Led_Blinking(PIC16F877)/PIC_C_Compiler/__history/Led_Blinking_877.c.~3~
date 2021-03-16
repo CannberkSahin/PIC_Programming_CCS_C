@@ -1,0 +1,31 @@
+/******************************************************************************
+*Project Name: Led_Blinking(PIC16F877)
+*Engineer: Canberk SAHIN
+*Project Microcontroller: PIC16F877
+*Version: V1
+*Create Date: 14.03.2021
+*Update Date: 14.03.2021
+*University: Bursa Technical University
+*Revision: - 
+******************************************************************************/
+
+#include <Led_Blinking_877.h>
+
+void main()
+{
+
+   setup_psp(PSP_DISABLED);
+   setup_timer_1(T1_DISABLED);
+   setup_timer_2(T2_DISABLED, 0, 1);
+   setup_adc_ports(NO_ANALOGS);
+   setup_adc(ADC_OFF);
+   setup_CCP1(CCP_OFF);
+   setup_CCP2(CCP_OFF);
+   
+
+   while(TRUE)
+   {
+      //TODO: User Code
+   }
+
+}

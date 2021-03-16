@@ -1,0 +1,37 @@
+/******************************************************************************
+*Project Name: Led_Blinking(PIC16F877)
+*Engineer: Canberk SAHIN
+*Project Microcontroller: PIC16F877
+*Version: V1
+*Create Date: 14.03.2021
+*Update Date: 14.03.2021
+*University: Bursa Technical University
+*Revision: - 
+******************************************************************************/
+
+#include <Led_Blinking_877.h>
+
+void main()
+{
+
+   setup_psp(PSP_DISABLED);           //PSP unit is disabled
+   setup_timer_1(T1_DISABLED);        //T1 unit is disabled
+   setup_timer_2(T2_DISABLED, 0, 1);  //T2 unit is disabled
+   setup_adc_ports(NO_ANALOGS);       //There is no analog input 
+   setup_adc(ADC_OFF);                //ADC unit is disabled
+   setup_CCP1(CCP_OFF);               //CCP1 unit is disabled.
+   setup_CCP2(CCP_OFF);               //CCP2 unit is disabled.
+   
+   set_tris_b(0x00);                  //Port B is completely out
+   
+   output_b(0x00);                    //B port output bits are all 0(zero)                                                  
+
+   while(TRUE)
+   {
+      output_high(pin_b0);            //Turn on led 
+      delay_ms(500);                  //Delay 500 mili seconds
+      output_low(pin_b0);             //Turn off led 
+      delay_ms(500);                  //Delay 500 mili seconds
+   }
+
+}

@@ -1,0 +1,147 @@
+CCS PCM C Compiler, Version 5.007, 61971               14-Mar-21 22:39
+
+               Filename:   C:\Users\canbe\OneDrive\Masaüstü\PIC_Programming_CCS(C)\Led_Blinking(PIC16F877)\PIC_C_Compiler\Led_Blinking_877.lst
+
+               ROM used:   73 words (1%)
+                           Largest free fragment is 2048
+               RAM used:   6 (2%) at main() level
+                           7 (2%) worst case
+               Stack used: 0 locations
+               Stack size: 8
+
+*
+0000:  MOVLW  00
+0001:  MOVWF  0A
+0002:  GOTO   018
+0003:  NOP
+.................... /****************************************************************************** 
+.................... *Project Name: Led_Blinking(PIC16F877) 
+.................... *Engineer: Canberk SAHIN 
+.................... *Project Microcontroller: PIC16F877 
+.................... *Version: V1 
+.................... *Create Date: 14.03.2021 
+.................... *Update Date: 14.03.2021 
+.................... *University: Bursa Technical University 
+.................... *Revision: -  
+.................... ******************************************************************************/ 
+....................  
+.................... #include <Led_Blinking_877.h> 
+.................... #include <16F877.h> 
+.................... //////// Standard Header file for the PIC16F877 device //////////////// 
+.................... #device PIC16F877 
+....................  
+.................... #list 
+....................  
+.................... #device ADC=16 
+....................  
+.................... #FUSES NOWDT                    //No Watch Dog Timer 
+.................... #FUSES NOBROWNOUT               //No brownout reset 
+.................... #FUSES NOLVP                    //No low voltage prgming, B3(PIC16) or B5(PIC18) used for I/O 
+.................... #FUSES XT                       //Crystal or ceramic resonator (Xtal) 
+.................... #FUSES NOPROTECT                //No protection against reading to ROM memory 
+.................... #FUSES NOPUT                    //No Power Up Timer. Defines if PUT is not desired 
+.................... #FUSES NOWRT                    //Program memory not write protected 
+.................... #FUSES NODEBUG                  //No Debug mode for ICD 
+.................... #FUSES NOCPD                    //No Code Protected Data. Used when protection of EEPROM memory is not requested 
+....................  
+.................... #use delay(crystal=20000000)    //Oscillator frequency used for the delay function 
+0004:  MOVLW  22
+0005:  MOVWF  04
+0006:  BCF    03.7
+0007:  MOVF   00,W
+0008:  BTFSC  03.2
+0009:  GOTO   017
+000A:  MOVLW  06
+000B:  MOVWF  78
+000C:  CLRF   77
+000D:  DECFSZ 77,F
+000E:  GOTO   00D
+000F:  DECFSZ 78,F
+0010:  GOTO   00C
+0011:  MOVLW  7B
+0012:  MOVWF  77
+0013:  DECFSZ 77,F
+0014:  GOTO   013
+0015:  DECFSZ 00,F
+0016:  GOTO   00A
+0017:  RETURN
+....................  
+.................... #use fast_io(b)                 //Port processing commands are valid for B port 
+....................  
+....................  
+.................... void main() 
+0018:  BSF    03.5
+0019:  BSF    1F.0
+001A:  BSF    1F.1
+001B:  BSF    1F.2
+001C:  BCF    1F.3
+001D:  BCF    03.7
+001E:  MOVLW  1F
+001F:  ANDWF  03,F
+.................... { 
+....................  
+....................    setup_psp(PSP_DISABLED);           //PSP unit is disabled 
+0020:  BCF    09.4
+....................    setup_timer_1(T1_DISABLED);        //T1 unit is disabled 
+0021:  BCF    03.5
+0022:  CLRF   10
+....................    setup_timer_2(T2_DISABLED, 0, 1);  //T2 unit is disabled 
+0023:  MOVLW  00
+0024:  MOVWF  78
+0025:  MOVWF  12
+0026:  MOVLW  00
+0027:  BSF    03.5
+0028:  MOVWF  12
+....................    setup_adc_ports(NO_ANALOGS);       //There is no analog input  
+0029:  BSF    1F.0
+002A:  BSF    1F.1
+002B:  BSF    1F.2
+002C:  BCF    1F.3
+....................    setup_adc(ADC_OFF);                //ADC unit is disabled 
+002D:  BCF    03.5
+002E:  BCF    1F.0
+....................    setup_CCP1(CCP_OFF);               //CCP1 unit is disabled. 
+002F:  MOVLW  F0
+0030:  ANDWF  17,F
+....................    setup_CCP2(CCP_OFF);               //CCP2 unit is disabled. 
+0031:  ANDWF  1D,F
+....................     
+....................    set_tris_b(0x00);                  //Port B is completely out 
+0032:  MOVLW  00
+0033:  BSF    03.5
+0034:  MOVWF  06
+....................     
+....................    output_b(0x00);                    //B port output bits are all 0(zero)                                                   
+0035:  BCF    03.5
+0036:  CLRF   06
+....................  
+....................    while(TRUE) 
+....................    { 
+....................       output_high(pin_b0);            //Turn on led  
+0037:  BSF    06.0
+....................       delay_ms(500);                  //Delay 500 mili seconds 
+0038:  MOVLW  02
+0039:  MOVWF  21
+003A:  MOVLW  FA
+003B:  MOVWF  22
+003C:  CALL   004
+003D:  DECFSZ 21,F
+003E:  GOTO   03A
+....................       output_low(pin_b0);             //Turn off led  
+003F:  BCF    06.0
+....................       delay_ms(500);                  //Delay 500 mili seconds 
+0040:  MOVLW  02
+0041:  MOVWF  21
+0042:  MOVLW  FA
+0043:  MOVWF  22
+0044:  CALL   004
+0045:  DECFSZ 21,F
+0046:  GOTO   042
+0047:  GOTO   037
+....................    } 
+....................  
+.................... } 
+0048:  SLEEP
+
+Configuration Fuses:
+   Word  1: 3F3A   HS NOWDT NOPUT NOBROWNOUT NOLVP NOCPD NOWRT NODEBUG NOPROTECT
