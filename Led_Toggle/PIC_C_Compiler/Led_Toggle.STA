@@ -1,0 +1,51 @@
+
+ROM used:   192/8192 (2%)
+            192/8192 (2%) including unused fragments
+
+            0.3 Average locations per line
+            11.3 Average locations per statement
+
+RAM used:   7/368 (2%) at main() level
+            28/368 (8%) worst case
+
+Stack used: 0 worst case (0 in main + 0 for interrupts)
+Stack size: 8
+
+Lines Stmts  %   Files
+----- ----- ---  -----
+   39    17 100  Led_Toggle.c
+   18     0   0  Led_Toggle.h
+  629     0   0  ..\..\..\..\..\..\..\Program Files (x86)\PICC\Devices\16F877.h
+----- -----
+  686    17 Total
+
+Page ROM  %  RAM   Vol Diff  Functions:
+---- --- --- ---   --- ----  ----------
+0     20  10    1             @delay_ms1
+0    111  58    2   560  4.8  main
+0     25  13    5             @READBITA
+0     32  17    6             @WRITEBITA
+ Inline         0             @cinit1
+
+Program metrics:
+    Functions               1
+    Statements              17
+    Comments                145
+    Volume (V)              569
+    Difficulty (D)          4.4
+    Effort to implement (E) 2512
+    Time to implement (T)   2 minutes
+    Est Delivered Bugs (B)  0
+    Cyclomatic Complexity   1
+    Maintainability (MI)    82
+
+ Segment     Used  Free
+-----------  ----  ----
+00000-00003     4  0  
+00004-007FF   188  1856  
+00800-00FFF     0  2048  
+01000-017FF     0  2048  
+01800-01FFF     0  2048  
+
+
+

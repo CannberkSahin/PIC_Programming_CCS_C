@@ -1,0 +1,67 @@
+004-005 @READ_PROGRAM_MEMORY8.P1
+004-005 @WRITE_PROGRAM_MEMORY8.P2
+008     PSP_DATA
+015     CCP_1_LOW
+015     CCP_1
+016     CCP_1_HIGH
+01B     CCP_2
+01B     CCP_2_LOW
+01C     CCP_2_HIGH
+021-030 main.port_b_array
+031     main.i
+032     main.@SCRATCH1
+033     @delay_ms1.P1
+033     main.@SCRATCH2
+034     @READBITA.P1
+034     @WRITEBITA.P2
+035-036 @READBITA.P1
+035     @WRITEBITA.P2
+036-037 @WRITEBITA.P1
+077     @SCRATCH
+078     @SCRATCH
+078     _RETURN_
+079     @SCRATCH
+07A     @SCRATCH
+10D-10E @WRITE_PROGRAM_MEMORY8.P1
+10D-10E @READ_PROGRAM_MEMORY8.P2
+
+ROM Allocation:
+000004  @delay_ms1
+000018  @READBITA
+000031  @WRITEBITA
+000051  main
+000051  @cinit1
+000056  @cinit2
+
+Project Directory:
+    C:\Users\canbe\OneDrive\Masaüstü\PIC_Programming_CCS(C)\Led_Toggle\PIC_C_Compiler\
+
+Project Files:
+    Led_Toggle.c                                            [14-Mar-21 23:47  CRC=47E5EEAE]
+    Led_Toggle.h                                            [14-Mar-21 23:01  CRC=07089F58]
+    ..\..\..\..\..\..\..\Program Files (x86)\PICC\Devices\16F877.h [21-Haz-13 16:04  CRC=A355A189]
+
+Source signature=9599D118
+
+Units:
+    Led_Toggle (main)
+
+Compiler Settings:
+    Processor:      PIC16F877
+    Pointer Size:   16
+    ADC Range:      0-65535
+    Opt Level:      9
+    Short,Int,Long: UNSIGNED: 1,8,16
+    Float,Double:   32,32
+
+Output Files:
+    XREF file:   Led_Toggle.xsym
+    Errors:      Led_Toggle.err
+    Ext Symbols: Led_Toggle.esym
+    INHX8:       Led_Toggle.hex
+    Symbols:     Led_Toggle.sym
+    List:        Led_Toggle.lst
+    Debug/COFF:  Led_Toggle.cof
+    Project:     Led_Toggle.ccspjt
+    Call Tree:   Led_Toggle.tre
+    Statistics:  Led_Toggle.STA

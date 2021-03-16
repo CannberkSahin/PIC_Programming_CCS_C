@@ -1,0 +1,271 @@
+CCS PCM C Compiler, Version 5.007, 61971               14-Mar-21 23:47
+
+               Filename:   C:\Users\canbe\OneDrive\Masaüstü\PIC_Programming_CCS(C)\Led_Toggle\PIC_C_Compiler\Led_Toggle.lst
+
+               ROM used:   192 words (2%)
+                           Largest free fragment is 2048
+               RAM used:   7 (2%) at main() level
+                           28 (8%) worst case
+               Stack used: 0 locations
+               Stack size: 8
+
+*
+0000:  MOVLW  00
+0001:  MOVWF  0A
+0002:  GOTO   051
+0003:  NOP
+.................... /****************************************************************************** 
+.................... *Project Name: Led Toggle 
+.................... *Engineer: Canberk SAHIN 
+.................... *Project Microcontroller: PIC16F877 
+.................... *Version: V1 
+.................... *Create Date: 14.03.2021 
+.................... *Update Date: 14.03.2021 
+.................... *University: Bursa Technical University 
+.................... *Revision: -  
+.................... ******************************************************************************/ 
+.................... #include <Led_Toggle.h> 
+.................... #include <16F877.h> 
+.................... //////// Standard Header file for the PIC16F877 device //////////////// 
+.................... #device PIC16F877 
+*
+0018:  MOVF   34,W
+0019:  ANDLW  07
+001A:  MOVWF  77
+001B:  RRF    34,W
+001C:  MOVWF  78
+001D:  RRF    78,F
+001E:  RRF    78,F
+001F:  MOVLW  1F
+0020:  ANDWF  78,F
+0021:  MOVF   78,W
+0022:  ADDWF  35,W
+0023:  MOVWF  04
+0024:  BCF    03.7
+0025:  BTFSC  36.0
+0026:  BSF    03.7
+0027:  MOVF   00,W
+0028:  MOVWF  78
+0029:  INCF   77,F
+002A:  GOTO   02C
+002B:  RRF    78,F
+002C:  DECFSZ 77,F
+002D:  GOTO   02B
+002E:  BCF    0A.3
+002F:  BCF    0A.4
+0030:  GOTO   0A3 (RETURN)
+0031:  MOVF   34,W
+0032:  ANDLW  07
+0033:  MOVWF  77
+0034:  RRF    34,W
+0035:  MOVWF  78
+0036:  RRF    78,F
+0037:  RRF    78,F
+0038:  MOVLW  1F
+0039:  ANDWF  78,F
+003A:  MOVF   78,W
+003B:  ADDWF  36,W
+003C:  MOVWF  04
+003D:  BCF    03.7
+003E:  BTFSC  37.0
+003F:  BSF    03.7
+0040:  CLRF   78
+0041:  INCF   78,F
+0042:  INCF   77,F
+0043:  GOTO   045
+0044:  RLF    78,F
+0045:  DECFSZ 77,F
+0046:  GOTO   044
+0047:  MOVF   35,F
+0048:  BTFSC  03.2
+0049:  GOTO   04D
+004A:  MOVF   78,W
+004B:  IORWF  00,F
+004C:  GOTO   050
+004D:  COMF   78,F
+004E:  MOVF   78,W
+004F:  ANDWF  00,F
+0050:  RETURN
+....................  
+.................... #list 
+....................  
+.................... #device ADC=16 
+....................  
+.................... #FUSES NOWDT                    //No Watch Dog Timer 
+.................... #FUSES NOBROWNOUT               //No brownout reset 
+.................... #FUSES NOLVP                    //No low voltage prgming, B3(PIC16) or B5(PIC18) used for I/O 
+.................... #FUSES XT                       //Crystal or ceramic resonator (Xtal) 
+.................... #FUSES NOPROTECT                //No protection against reading to ROM memory 
+.................... #FUSES NOPUT                    //No Power Up Timer. Defines if PUT is not desired 
+.................... #FUSES NOWRT                    //Program memory not write protected 
+.................... #FUSES NODEBUG                  //No Debug mode for ICD 
+.................... #FUSES NOCPD                    //No Code Protected Data. Used when protection of EEPROM memory is not requested 
+....................  
+.................... #use delay(crystal=20000000)    //Oscillator frequency used for the delay function 
+*
+0004:  MOVLW  33
+0005:  MOVWF  04
+0006:  BCF    03.7
+0007:  MOVF   00,W
+0008:  BTFSC  03.2
+0009:  GOTO   017
+000A:  MOVLW  06
+000B:  MOVWF  78
+000C:  CLRF   77
+000D:  DECFSZ 77,F
+000E:  GOTO   00D
+000F:  DECFSZ 78,F
+0010:  GOTO   00C
+0011:  MOVLW  7B
+0012:  MOVWF  77
+0013:  DECFSZ 77,F
+0014:  GOTO   013
+0015:  DECFSZ 00,F
+0016:  GOTO   00A
+0017:  RETURN
+....................  
+.................... #use fast_io(b)                 //Port processing commands are valid for B port 
+....................  
+....................  
+....................  
+.................... void main() 
+*
+0051:  BSF    03.5
+0052:  BSF    1F.0
+0053:  BSF    1F.1
+0054:  BSF    1F.2
+0055:  BCF    1F.3
+0056:  BCF    03.7
+0057:  MOVLW  1F
+0058:  ANDWF  03,F
+.................... { 
+....................    setup_psp(PSP_DISABLED);           //PSP unit is disabled 
+0059:  BCF    09.4
+....................    setup_timer_1(T1_DISABLED);        //T1 unit is disabled 
+005A:  BCF    03.5
+005B:  CLRF   10
+....................    setup_timer_2(T2_DISABLED, 0, 1);  //T2 unit is disabled 
+005C:  MOVLW  00
+005D:  MOVWF  78
+005E:  MOVWF  12
+005F:  MOVLW  00
+0060:  BSF    03.5
+0061:  MOVWF  12
+....................    setup_adc_ports(NO_ANALOGS);       //There is no analog input  
+0062:  BSF    1F.0
+0063:  BSF    1F.1
+0064:  BSF    1F.2
+0065:  BCF    1F.3
+....................    setup_adc(ADC_OFF);                //ADC unit is disabled 
+0066:  BCF    03.5
+0067:  BCF    1F.0
+....................    setup_CCP1(CCP_OFF);               //CCP1 unit is disabled. 
+0068:  MOVLW  F0
+0069:  ANDWF  17,F
+....................    setup_CCP2(CCP_OFF);               //CCP2 unit is disabled. 
+006A:  ANDWF  1D,F
+....................     
+....................    set_tris_b(0x00);                  //All pins of B port are set as outputs 
+006B:  MOVLW  00
+006C:  BSF    03.5
+006D:  MOVWF  06
+....................     
+....................    output_b(0x00);                    //Port B reset 
+006E:  BCF    03.5
+006F:  CLRF   06
+....................    
+....................    int16 port_b_array[8] = {pin_b0,pin_b1,pin_b2,pin_b3,pin_b4,pin_b5,pin_b6,pin_b7}; //Create Port B pins array 
+0070:  MOVLW  30
+0071:  MOVWF  21
+0072:  CLRF   22
+0073:  MOVLW  31
+0074:  MOVWF  23
+0075:  CLRF   24
+0076:  MOVLW  32
+0077:  MOVWF  25
+0078:  CLRF   26
+0079:  MOVLW  33
+007A:  MOVWF  27
+007B:  CLRF   28
+007C:  MOVLW  34
+007D:  MOVWF  29
+007E:  CLRF   2A
+007F:  MOVLW  35
+0080:  MOVWF  2B
+0081:  CLRF   2C
+0082:  MOVLW  36
+0083:  MOVWF  2D
+0084:  CLRF   2E
+0085:  MOVLW  37
+0086:  MOVWF  2F
+0087:  CLRF   30
+....................    
+....................    while(TRUE) 
+....................    { 
+....................       for(int i=0; i<8; ++i){ 
+0088:  CLRF   31
+0089:  MOVF   31,W
+008A:  SUBLW  07
+008B:  BTFSS  03.0
+008C:  GOTO   0BE
+....................          delay_ms(500);  //Delay 500 ms            
+008D:  MOVLW  02
+008E:  MOVWF  32
+008F:  MOVLW  FA
+0090:  MOVWF  33
+0091:  CALL   004
+0092:  DECFSZ 32,F
+0093:  GOTO   08F
+....................          output_toggle(port_b_array[i]);  //Sending the pins of the B port with the array pin_b0, pin_b1 ... etc 
+0094:  BCF    03.0
+0095:  RLF    31,W
+0096:  ADDLW  21
+0097:  MOVWF  04
+0098:  BCF    03.7
+0099:  INCF   04,F
+009A:  MOVF   00,W
+009B:  MOVWF  33
+009C:  DECF   04,F
+009D:  MOVF   00,W
+009E:  MOVWF  32
+009F:  MOVWF  34
+00A0:  CLRF   36
+00A1:  CLRF   35
+00A2:  GOTO   018
+00A3:  MOVLW  00
+00A4:  BTFSS  78.0
+00A5:  MOVLW  01
+00A6:  MOVWF  77
+00A7:  MOVF   32,W
+00A8:  MOVWF  34
+00A9:  MOVF   77,W
+00AA:  MOVWF  35
+00AB:  CLRF   37
+00AC:  CLRF   36
+00AD:  CALL   031
+00AE:  MOVF   32,W
+00AF:  MOVWF  34
+00B0:  CLRF   35
+00B1:  CLRF   37
+00B2:  MOVLW  80
+00B3:  MOVWF  36
+00B4:  CALL   031
+....................          delay_ms(500); //Delay 500 ms   
+00B5:  MOVLW  02
+00B6:  MOVWF  32
+00B7:  MOVLW  FA
+00B8:  MOVWF  33
+00B9:  CALL   004
+00BA:  DECFSZ 32,F
+00BB:  GOTO   0B7
+00BC:  INCF   31,F
+00BD:  GOTO   089
+....................       } 
+00BE:  GOTO   088
+....................    } 
+....................  
+.................... } 
+00BF:  SLEEP
+
+Configuration Fuses:
+   Word  1: 3F3A   HS NOWDT NOPUT NOBROWNOUT NOLVP NOCPD NOWRT NODEBUG NOPROTECT
