@@ -1,0 +1,13 @@
+#include <Led_Control_With_Button.h>
+
+int1 read_RA0_pin;  //Zero initialize global variable
+
+void main()
+{
+
+   while(TRUE)
+   {
+      //TODO: User Code
+   }
+
+}

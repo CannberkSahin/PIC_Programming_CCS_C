@@ -1,0 +1,49 @@
+
+ROM used:   72/8192 (1%)
+            72/8192 (1%) including unused fragments
+
+            0.1 Average locations per line
+            4.0 Average locations per statement
+
+RAM used:   6/368 (2%) at main() level
+            7/368 (2%) worst case
+
+Stack used: 0 worst case (0 in main + 0 for interrupts)
+Stack size: 8
+
+Lines Stmts  %   Files
+----- ----- ---  -----
+   44    18 100  Led_Control_With_Button.c
+   18     0   0  Led_Control_With_Button.h
+  629     0   0  ..\..\..\..\..\..\..\Program Files (x86)\PICC\Devices\16F877.h
+----- -----
+  691    18 Total
+
+Page ROM  %  RAM   Vol Diff  Functions:
+---- --- --- ---   --- ----  ----------
+0     22  31    1             @delay_ms1
+0     46  64    0   396  3.8  main
+ Inline         0             @cinit1
+
+Program metrics:
+    Functions               1
+    Statements              18
+    Comments                146
+    Volume (V)              401
+    Difficulty (D)          3.6
+    Effort to implement (E) 1430
+    Time to implement (T)   1 minutes
+    Est Delivered Bugs (B)  0
+    Cyclomatic Complexity   1
+    Maintainability (MI)    86
+
+ Segment     Used  Free
+-----------  ----  ----
+00000-00003     4  0  
+00004-007FF    68  1976  
+00800-00FFF     0  2048  
+01000-017FF     0  2048  
+01800-01FFF     0  2048  
+
+
+

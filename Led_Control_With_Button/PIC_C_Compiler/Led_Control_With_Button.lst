@@ -1,0 +1,153 @@
+CCS PCM C Compiler, Version 5.007, 61971               14-Mar-21 22:07
+
+               Filename:   C:\Users\canbe\OneDrive\Masaüstü\PIC_Programming_CCS(C)\Led_Control_With_Button\PIC_C_Compiler\Led_Control_With_Button.lst
+
+               ROM used:   72 words (1%)
+                           Largest free fragment is 2048
+               RAM used:   6 (2%) at main() level
+                           7 (2%) worst case
+               Stack used: 0 locations
+               Stack size: 8
+
+*
+0000:  MOVLW  00
+0001:  MOVWF  0A
+0002:  GOTO   01A
+0003:  NOP
+.................... /****************************************************************************** 
+.................... *Project Name: Led Control With Button 
+.................... *Engineer: Canberk SAHIN 
+.................... *Project Microcontroller: PIC16F877 
+.................... *Version: V1 
+.................... *Create Date: 14.03.2021 
+.................... *Update Date: 14.03.2021 
+.................... *University: Bursa Technical University 
+.................... *Revision: -  
+.................... ******************************************************************************/ 
+.................... #include <Led_Control_With_Button.h> 
+.................... #include <16F877.h> 
+.................... //////// Standard Header file for the PIC16F877 device //////////////// 
+.................... #device PIC16F877 
+....................  
+.................... #list 
+....................  
+.................... #device ADC=16 
+....................  
+.................... #FUSES NOWDT                    //No Watch Dog Timer 
+.................... #FUSES NOBROWNOUT               //No brownout reset 
+.................... #FUSES NOLVP                    //No low voltage prgming, B3(PIC16) or B5(PIC18) used for I/O 
+.................... #FUSES XT                       //Crystal or ceramic resonator (Xtal) 
+.................... #FUSES NOPROTECT                //No protection against reading to ROM memory 
+.................... #FUSES NOPUT                    //No Power Up Timer. Defines if PUT is not desired 
+.................... #FUSES NOWRT                    //Program memory not write protected 
+.................... #FUSES NODEBUG                  //No Debug mode for ICD 
+.................... #FUSES NOCPD                    //No Code Protected Data. Used when protection of EEPROM memory is not requested 
+....................  
+.................... #use delay(crystal=20000000)    //Oscillator frequency used for the delay function 
+0004:  MOVLW  21
+0005:  MOVWF  04
+0006:  BCF    03.7
+0007:  MOVF   00,W
+0008:  BTFSC  03.2
+0009:  GOTO   017
+000A:  MOVLW  06
+000B:  MOVWF  78
+000C:  CLRF   77
+000D:  DECFSZ 77,F
+000E:  GOTO   00D
+000F:  DECFSZ 78,F
+0010:  GOTO   00C
+0011:  MOVLW  7B
+0012:  MOVWF  77
+0013:  DECFSZ 77,F
+0014:  GOTO   013
+0015:  DECFSZ 00,F
+0016:  GOTO   00A
+0017:  BCF    0A.3
+0018:  BCF    0A.4
+0019:  GOTO   044 (RETURN)
+....................  
+.................... #use fast_io(a)                 //Port processing commands are valid for A port 
+.................... #use fast_io(b)                 //Port processing commands are valid for B port 
+....................  
+....................  
+.................... int1 read_RA0_pin;  //Zero initialize global variable 
+....................  
+.................... void main() 
+001A:  BSF    03.5
+001B:  BSF    1F.0
+001C:  BSF    1F.1
+001D:  BSF    1F.2
+001E:  BCF    1F.3
+001F:  BCF    03.7
+0020:  MOVLW  1F
+0021:  ANDWF  03,F
+.................... { 
+....................     
+....................    setup_psp(PSP_DISABLED);           //PSP unit is disabled 
+0022:  BCF    09.4
+....................    setup_timer_1(T1_DISABLED);        //T1 unit is disabled 
+0023:  BCF    03.5
+0024:  CLRF   10
+....................    setup_timer_2(T2_DISABLED, 0, 1);  //T2 unit is disabled 
+0025:  MOVLW  00
+0026:  MOVWF  78
+0027:  MOVWF  12
+0028:  MOVLW  00
+0029:  BSF    03.5
+002A:  MOVWF  12
+....................    setup_adc_ports(NO_ANALOGS);       //There is no analog input  
+002B:  BSF    1F.0
+002C:  BSF    1F.1
+002D:  BSF    1F.2
+002E:  BCF    1F.3
+....................    setup_adc(ADC_OFF);                //ADC unit is disabled 
+002F:  BCF    03.5
+0030:  BCF    1F.0
+....................    setup_CCP1(CCP_OFF);               //CCP1 unit is disabled. 
+0031:  MOVLW  F0
+0032:  ANDWF  17,F
+....................    setup_CCP2(CCP_OFF);               //CCP2 unit is disabled. 
+0033:  ANDWF  1D,F
+....................     
+....................    set_tris_a(0b00000001);            //RA0 pin set as input 
+0034:  MOVLW  01
+0035:  BSF    03.5
+0036:  MOVWF  05
+....................    set_tris_b(0x00);                  //All pins of B port are set as outputs 
+0037:  MOVLW  00
+0038:  MOVWF  06
+....................     
+....................    output_b(0x00);                    //Port B reset 
+0039:  BCF    03.5
+003A:  CLRF   06
+....................  
+....................    while(TRUE) 
+....................    { 
+....................       read_RA0_pin = input(pin_a0);   //RA0 pin is read digitally. 
+003B:  BCF    20.0
+003C:  BTFSC  05.0
+003D:  BSF    20.0
+....................        
+....................       if(read_RA0_pin){               //If the value of the read_RA0_pin variable is 1, turn on the led. 
+003E:  BTFSS  20.0
+003F:  GOTO   045
+....................          output_high(pin_b0); 
+0040:  BSF    06.0
+....................          delay_ms(50);               //Because no pull-up resistor. So created button arc. 
+0041:  MOVLW  32
+0042:  MOVWF  21
+0043:  GOTO   004
+....................       } 
+0044:  GOTO   046
+....................       else 
+....................          output_low(pin_b0); 
+0045:  BCF    06.0
+0046:  GOTO   03B
+....................    } 
+....................  
+.................... } 
+0047:  SLEEP
+
+Configuration Fuses:
+   Word  1: 3F3A   HS NOWDT NOPUT NOBROWNOUT NOLVP NOCPD NOWRT NODEBUG NOPROTECT
