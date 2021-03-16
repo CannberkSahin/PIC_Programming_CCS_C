@@ -1,0 +1,17 @@
+#include <Led_Bilinking.h>
+
+void main()
+{
+   set_tris_b(0x00); /*Not standart in C exp: set_tris_b(0b00000000) 
+   PIC's port b is set as output
+   */
+   
+   while(TRUE)
+   {
+      output_high(pin_b0);  //Turn on led
+      delay_ms(500);  //Half a second delay
+      output_low(pin_b0);  //Turn off led
+      delay_ms(500);  //Half a second delay
+   }
+
+}
