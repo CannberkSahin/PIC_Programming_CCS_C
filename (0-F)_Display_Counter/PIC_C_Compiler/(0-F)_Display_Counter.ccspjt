@@ -1,0 +1,23 @@
+[PROJECT]
+Target=(0-F)_Display_Counter.hex
+Processor_Text=PIC16F877
+CCSVerions=5.007
+Compiler=PCM
+CCSVersion=5.007
+[Target Data]
+FileList=(0-F)_Display_Counter.c
+[Directories]
+Include=C:\Program Files (x86)\PICC\Devices\;C:\Program Files (x86)\PICC\Drivers\;C:\Users\canbe\OneDrive\Masaüstü\PIC_Programming_CCS(C)\(0-F)_Display_Counter\PIC_C_Compiler\
+[C:\Users\canbe\OneDrive\Masaüstü\PIC_Programming_CCS(C)\(0-F)_Display_Counter\PIC_C_Compiler\(0-F)_Display_Counter]
+Type=4
+[mru-list]
+1=(0-F)_Display_Counter.c
+[Opened Files]
+1=(0-F)_Display_Counter.c
+2=
+3=
+[(0-F)_Display_Counter.c]
+Type=4
+[Units]
+Count=1
+1=(0-F)_Display_Counter (main)

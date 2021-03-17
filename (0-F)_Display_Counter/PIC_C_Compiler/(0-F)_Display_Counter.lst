@@ -1,0 +1,182 @@
+CCS PCM C Compiler, Version 5.007, 61971               17-Mar-21 16:57
+
+               Filename:   C:\Users\canbe\OneDrive\Masaüstü\PIC_Programming_CCS(C)\(0-F)_Display_Counter\PIC_C_Compiler\(0-F)_Display_Counter.lst
+
+               ROM used:   100 words (1%)
+                           Largest free fragment is 2048
+               RAM used:   7 (2%) at main() level
+                           8 (2%) worst case
+               Stack used: 0 locations
+               Stack size: 8
+
+*
+0000:  MOVLW  00
+0001:  MOVWF  0A
+0002:  GOTO   02E
+0003:  NOP
+.................... /****************************************************************************** 
+.................... *Project Name: Display Application-1 (0-F) Counter 
+.................... *Engineer: Canberk SAHIN 
+.................... *Project Microcontroller: PIC16F877 
+.................... *Version: V1 
+.................... *Create Date: 17.03.2021 
+.................... *Update Date: 17.03.2021 
+.................... *University: Bursa Technical University 
+.................... *Revision: -  
+.................... ******************************************************************************/ 
+.................... #include <(0-F)_Display_Counter.h> 
+.................... #include <16F877.h> 
+.................... //////// Standard Header file for the PIC16F877 device //////////////// 
+.................... #device PIC16F877 
+0004:  BCF    0A.0
+0005:  BCF    0A.1
+0006:  BCF    0A.2
+0007:  ADDWF  02,F
+0008:  RETLW  3F
+0009:  RETLW  06
+000A:  RETLW  5B
+000B:  RETLW  4F
+000C:  RETLW  66
+000D:  RETLW  6D
+000E:  RETLW  7D
+000F:  RETLW  07
+0010:  RETLW  7F
+0011:  RETLW  6F
+0012:  RETLW  77
+0013:  RETLW  7C
+0014:  RETLW  39
+0015:  RETLW  5E
+0016:  RETLW  79
+0017:  RETLW  71
+....................  
+.................... #list 
+....................  
+.................... #device ADC=16 
+....................  
+.................... #FUSES NOWDT                    //No Watch Dog Timer 
+.................... #FUSES NOBROWNOUT               //No brownout reset 
+.................... #FUSES NOLVP                    //No low voltage prgming, B3(PIC16) or B5(PIC18) used for I/O 
+.................... #FUSES XT                       //Crystal or ceramic resonator (Xtal) 
+.................... #FUSES NOPROTECT                //No protection against reading to ROM memory 
+.................... #FUSES NOPUT                    //No Power Up Timer. Defines if PUT is not desired 
+.................... #FUSES NOWRT                    //Program memory not write protected 
+.................... #FUSES NODEBUG                  //No Debug mode for ICD 
+.................... #FUSES NOCPD                    //No Code Protected Data. Used when protection of EEPROM memory is not requested 
+....................  
+.................... #use delay(crystal=20000000)    //Oscillator frequency used for the delay function 
+0018:  MOVLW  22
+0019:  MOVWF  04
+001A:  BCF    03.7
+001B:  MOVF   00,W
+001C:  BTFSC  03.2
+001D:  GOTO   02B
+001E:  MOVLW  06
+001F:  MOVWF  78
+0020:  CLRF   77
+0021:  DECFSZ 77,F
+0022:  GOTO   021
+0023:  DECFSZ 78,F
+0024:  GOTO   020
+0025:  MOVLW  7B
+0026:  MOVWF  77
+0027:  DECFSZ 77,F
+0028:  GOTO   027
+0029:  DECFSZ 00,F
+002A:  GOTO   01E
+002B:  BCF    0A.3
+002C:  BCF    0A.4
+002D:  GOTO   05E (RETURN)
+....................  
+.................... #use fast_io(a)                 //Port processing commands are valid for A port 
+.................... #use fast_io(b)                 //Port processing commands are valid for B port 
+....................  
+....................  
+....................  
+.................... int8 i;  //An 8-bit global variable is defined 
+....................  
+.................... /*Data values for common cathode display*/ 
+.................... const int digit[16] = {0x3F, 0x06, 0x5B, 0x4F, 0x66, 0x6D, 0x7D, 0x07, 
+.................... 0x7F, 0x6F, 0x77, 0x7C, 0x39, 0x5E, 0x79, 0x71}; 
+....................  
+.................... void main() 
+002E:  BSF    03.5
+002F:  BSF    1F.0
+0030:  BSF    1F.1
+0031:  BSF    1F.2
+0032:  BCF    1F.3
+0033:  BCF    03.7
+0034:  MOVLW  1F
+0035:  ANDWF  03,F
+.................... { 
+....................    setup_psp(PSP_DISABLED);           //PSP unit is disabled 
+0036:  BCF    09.4
+....................    setup_timer_1(T1_DISABLED);        //T1 unit is disabled 
+0037:  BCF    03.5
+0038:  CLRF   10
+....................    setup_timer_2(T2_DISABLED, 0, 1);  //T2 unit is disabled 
+0039:  MOVLW  00
+003A:  MOVWF  78
+003B:  MOVWF  12
+003C:  MOVLW  00
+003D:  BSF    03.5
+003E:  MOVWF  12
+....................    setup_adc_ports(NO_ANALOGS);       //There is no analog input  
+003F:  BSF    1F.0
+0040:  BSF    1F.1
+0041:  BSF    1F.2
+0042:  BCF    1F.3
+....................    setup_adc(ADC_OFF);                //ADC unit is disabled 
+0043:  BCF    03.5
+0044:  BCF    1F.0
+....................    setup_CCP1(CCP_OFF);               //CCP1 unit is disabled. 
+0045:  MOVLW  F0
+0046:  ANDWF  17,F
+....................    setup_CCP2(CCP_OFF);               //CCP2 unit is disabled. 
+0047:  ANDWF  1D,F
+....................     
+....................    set_tris_a(0x00);  //Port A is completely set as output 
+0048:  MOVLW  00
+0049:  BSF    03.5
+004A:  MOVWF  05
+....................    set_tris_b(0x00);  //Port A is completely set as output 
+004B:  MOVWF  06
+....................  
+....................    output_b(0x00);  //B port outputs are reset 
+004C:  BCF    03.5
+004D:  CLRF   06
+....................    output_a(0x02);  //RA1 pin logic-1, other pins logic-0 to activate display 
+004E:  MOVLW  02
+004F:  MOVWF  05
+....................  
+....................    while(TRUE) 
+....................    { 
+....................       for(i=0; i<16; ++i){ 
+0050:  CLRF   20
+0051:  MOVF   20,W
+0052:  SUBLW  0F
+0053:  BTFSS  03.0
+0054:  GOTO   062
+....................          output_b(digit[i]); //Digit [i] value is sent to port B 
+0055:  MOVF   20,W
+0056:  CALL   004
+0057:  MOVWF  21
+0058:  MOVWF  06
+....................          delay_ms(500);  //500 ms delay 
+0059:  MOVLW  02
+005A:  MOVWF  21
+005B:  MOVLW  FA
+005C:  MOVWF  22
+005D:  GOTO   018
+005E:  DECFSZ 21,F
+005F:  GOTO   05B
+0060:  INCF   20,F
+0061:  GOTO   051
+....................       } 
+0062:  GOTO   050
+....................    } 
+....................  
+.................... } 
+0063:  SLEEP
+
+Configuration Fuses:
+   Word  1: 3F3A   HS NOWDT NOPUT NOBROWNOUT NOLVP NOCPD NOWRT NODEBUG NOPROTECT
