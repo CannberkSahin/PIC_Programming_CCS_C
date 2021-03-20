@@ -1,0 +1,87 @@
+/******************************************************************************
+*Project Name: Integrated Display Counter (0-99) With 7448 IC
+*Engineer: Canberk SAHIN
+*Project Microcontroller: PIC16F877
+*Version: V1
+*Create Date: 17.03.2021
+*Update Date: 18.03.2021
+*University: Bursa Technical University
+*Revision: - 
+******************************************************************************/
+#include <Up_And_Down_Counter.h>
+
+//Define Macros
+#define increase pin_a0 //increase button matches pin_a0
+#define decrease pin_a1 //decrease button matches pin_a0
+
+//Define global variable
+char ones=0,tens=0,num=0;
+
+/*Data values for common cathode display*/
+const int digit[10]={0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09};
+
+void main()
+{
+   setup_psp(PSP_DISABLED);           //PSP unit is disabled  
+   setup_timer_1(T1_DISABLED);        //T1 unit is disabled
+   setup_timer_2(T2_DISABLED, 0, 1);  //T2 unit is disabled
+   setup_adc_ports(NO_ANALOGS);       //There is no analog input 
+   setup_adc(ADC_OFF);                //ADC unit is disabled
+   setup_CCP1(CCP_OFF);               //CCP1 unit is disabled.
+   setup_CCP2(CCP_OFF);               //CCP2 unit is disabled.
+   
+   set_tris_a(0x03);  //RA0, RA1 input, Other A port pins output 0x03=(0000 0011)
+   set_tris_b(0x00);  //Port A is completely set as output
+   
+   while(TRUE)
+   {
+      output_b(digit[ones] | 0b00010000);
+      /*The 1st display is active, the 2nd display is passive and the ones digit 
+      information is sent to the B port.*/
+      delay_ms(5); //5 mili second delay
+      output_b(digit[tens] | 0b00100000);
+      /*The 1st display is passive, the 2nd display is active and the ones digit 
+      information is sent to the B port.*/
+      delay_ms(5); //5 mili second delay
+      
+      if(input(increase)){ //the increase button is pressed
+         ++num;
+         
+         ones=num%10;
+         tens=num/10;
+         
+         while(input(increase)){ //wait until the button is released
+            output_b(digit[ones] | 0b00010000);
+            /*The 1st display is active, the 2nd display is passive and the ones digit 
+            information is sent to the B port.*/
+            delay_ms(5); //5 mili second delay
+            output_b(digit[tens] | 0b00100000);
+            /*The 1st display is passive, the 2nd display is active and the ones digit 
+            information is sent to the B port.*/
+            delay_ms(5); //5 mili second delay
+         }
+      }
+      
+      if(input(decrease)){ //the decrease button is pressed
+         --num;
+         
+         ones=num%10;
+         tens=num/10;
+         
+         while(input(decrease)){ //wait until the button is released
+            output_b(digit[ones] | 0b00010000);
+            /*The 1st display is active, the 2nd display is passive and the ones digit 
+            information is sent to the B port.*/
+            delay_ms(5); //5 mili second delay
+            output_b(digit[tens] | 0b00100000);
+            /*The 1st display is passive, the 2nd display is active and the ones digit 
+            information is sent to the B port.*/
+            delay_ms(5); //5 mili second delay
+         }
+      }
+      
+      if(100==num)  //reset if number value is 100
+         num=0;
+   }
+
+}
