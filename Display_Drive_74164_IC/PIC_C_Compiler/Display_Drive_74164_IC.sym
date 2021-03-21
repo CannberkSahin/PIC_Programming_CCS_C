@@ -1,0 +1,61 @@
+004-005 @READ_PROGRAM_MEMORY8.P1
+004-005 @WRITE_PROGRAM_MEMORY8.P2
+008     PSP_DATA
+015     CCP_1_LOW
+015     CCP_1
+016     CCP_1_HIGH
+01B     CCP_2
+01B     CCP_2_LOW
+01C     CCP_2_HIGH
+020     i
+021     j
+022     main.@SCRATCH1
+023     @delay_ms1.P1
+077     @SCRATCH
+078     @SCRATCH
+078     _RETURN_
+079     @SCRATCH
+07A     @SCRATCH
+10D-10E @READ_PROGRAM_MEMORY8.P1
+10D-10E @WRITE_PROGRAM_MEMORY8.P2
+
+ROM Allocation:
+000004  digit.call
+000008  digit.data
+000012  @delay_ms1
+000028  main
+000028  @cinit1
+00002F  @cinit2
+
+Project Directory:
+    C:\Users\canbe\OneDrive\Masaüstü\PIC_Programming_CCS(C)\Display_Drive_74164_IC\PIC_C_Compiler\
+
+Project Files:
+    Display_Drive_74164_IC.c                                [21-Mar-21 21:03  CRC=5A11ACED]
+    Display_Drive_74164_IC.h                                [21-Mar-21 20:45  CRC=07089F58]
+    ..\..\..\..\..\..\..\Program Files (x86)\PICC\Devices\16F877.h [21-Haz-13 16:04  CRC=A355A189]
+
+Source signature=A7C58F57
+
+Units:
+    Display_Drive_74164_IC (main)
+
+Compiler Settings:
+    Processor:      PIC16F877
+    Pointer Size:   16
+    ADC Range:      0-65535
+    Opt Level:      9
+    Short,Int,Long: UNSIGNED: 1,8,16
+    Float,Double:   32,32
+
+Output Files:
+    XREF file:   Display_Drive_74164_IC.xsym
+    Errors:      Display_Drive_74164_IC.err
+    Ext Symbols: Display_Drive_74164_IC.esym
+    INHX8:       Display_Drive_74164_IC.hex
+    Symbols:     Display_Drive_74164_IC.sym
+    List:        Display_Drive_74164_IC.lst
+    Debug/COFF:  Display_Drive_74164_IC.cof
+    Project:     Display_Drive_74164_IC.ccspjt
+    Call Tree:   Display_Drive_74164_IC.tre
+    Statistics:  Display_Drive_74164_IC.STA
