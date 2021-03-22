@@ -1,0 +1,199 @@
+CCS PCM C Compiler, Version 5.007, 61971               22-Mar-21 17:43
+
+               Filename:   C:\Users\canbe\OneDrive\Masaüstü\PIC_Programming_CCS(C)\Port_Multiplexing_74138_IC\PIC_C_Compiler\Port_Multiplexing_74138_IC.lst
+
+               ROM used:   110 words (1%)
+                           Largest free fragment is 2048
+               RAM used:   7 (2%) at main() level
+                           7 (2%) worst case
+               Stack used: 0 locations
+               Stack size: 8
+
+*
+0000:  MOVLW  00
+0001:  MOVWF  0A
+0002:  GOTO   018
+0003:  NOP
+.................... /****************************************************************************** 
+.................... *Project Name: Port Multiplexing With 74138 IC 
+.................... *Engineer: Canberk SAHIN 
+.................... *Project Microcontroller: PIC16F877 
+.................... *Version: V1 
+.................... *Create Date: 20.03.2021 
+.................... *Update Date: 20.03.2021 
+.................... *University: Bursa Technical University 
+.................... *Revision: -  
+.................... ******************************************************************************/ 
+.................... #include <Port_Multiplexing_74138_IC.h> 
+.................... #include <16F877.h> 
+.................... //////// Standard Header file for the PIC16F877 device //////////////// 
+.................... #device PIC16F877 
+....................  
+.................... #list 
+....................  
+.................... #device ADC=16 
+....................  
+.................... #FUSES NOWDT                    //No Watch Dog Timer 
+.................... #FUSES NOBROWNOUT               //No brownout reset 
+.................... #FUSES NOLVP                    //No low voltage prgming, B3(PIC16) or B5(PIC18) used for I/O 
+.................... #FUSES XT                       //Crystal or ceramic resonator (Xtal) 
+.................... #FUSES NOPROTECT                //No protection against reading to ROM memory 
+.................... #FUSES NOPUT                    //No Power Up Timer. Defines if PUT is not desired 
+.................... #FUSES NOWRT                    //Program memory not write protected 
+.................... #FUSES NODEBUG                  //No Debug mode for ICD 
+.................... #FUSES NOCPD                    //No Code Protected Data. Used when protection of EEPROM memory is not requested 
+....................  
+.................... #use delay(crystal=20000000)    //Oscillator frequency used for the delay function 
+0004:  MOVLW  21
+0005:  MOVWF  04
+0006:  BCF    03.7
+0007:  MOVF   00,W
+0008:  BTFSC  03.2
+0009:  GOTO   017
+000A:  MOVLW  06
+000B:  MOVWF  78
+000C:  CLRF   77
+000D:  DECFSZ 77,F
+000E:  GOTO   00D
+000F:  DECFSZ 78,F
+0010:  GOTO   00C
+0011:  MOVLW  7B
+0012:  MOVWF  77
+0013:  DECFSZ 77,F
+0014:  GOTO   013
+0015:  DECFSZ 00,F
+0016:  GOTO   00A
+0017:  RETURN
+....................  
+.................... #use fast_io(b)                 //Port processing commands are valid for B port 
+....................  
+....................  
+....................  
+.................... //Define global variable 
+.................... int i; 
+....................  
+.................... void main() 
+0018:  BSF    03.5
+0019:  BSF    1F.0
+001A:  BSF    1F.1
+001B:  BSF    1F.2
+001C:  BCF    1F.3
+001D:  BCF    03.7
+001E:  MOVLW  1F
+001F:  ANDWF  03,F
+.................... { 
+....................    setup_psp(PSP_DISABLED);           //PSP unit is disabled   
+0020:  BCF    09.4
+....................    setup_timer_1(T1_DISABLED);        //T1 unit is disabled 
+0021:  BCF    03.5
+0022:  CLRF   10
+....................    setup_timer_2(T2_DISABLED, 0, 1);  //T2 unit is disabled 
+0023:  MOVLW  00
+0024:  MOVWF  78
+0025:  MOVWF  12
+0026:  MOVLW  00
+0027:  BSF    03.5
+0028:  MOVWF  12
+....................    setup_adc_ports(NO_ANALOGS);       //There is no analog input  
+0029:  BSF    1F.0
+002A:  BSF    1F.1
+002B:  BSF    1F.2
+002C:  BCF    1F.3
+....................    setup_adc(ADC_OFF);                //ADC unit is disabled 
+002D:  BCF    03.5
+002E:  BCF    1F.0
+....................    setup_CCP1(CCP_OFF);               //CCP1 unit is disabled. 
+002F:  MOVLW  F0
+0030:  ANDWF  17,F
+....................    setup_CCP2(CCP_OFF);               //CCP2 unit is disabled. 
+0031:  ANDWF  1D,F
+....................     
+....................    set_tris_b(0x00);    //Port A is completely set as output 
+0032:  MOVLW  00
+0033:  BSF    03.5
+0034:  MOVWF  06
+....................     
+....................    while(TRUE) 
+....................    { 
+....................       for(i=0; i<8; ++i){ 
+0035:  BCF    03.5
+0036:  CLRF   20
+0037:  MOVF   20,W
+0038:  SUBLW  07
+0039:  BTFSS  03.0
+003A:  GOTO   042
+....................          output_b(i|0b00000000);  //The first 74138 is selected and the outputs are activated sequentially. 
+003B:  MOVF   20,W
+003C:  MOVWF  06
+....................          delay_ms(250);  //250 ms delay 
+003D:  MOVLW  FA
+003E:  MOVWF  21
+003F:  CALL   004
+0040:  INCF   20,F
+0041:  GOTO   037
+....................       } 
+....................        
+....................       for(i=0; i<8; ++i){ 
+0042:  CLRF   20
+0043:  MOVF   20,W
+0044:  SUBLW  07
+0045:  BTFSS  03.0
+0046:  GOTO   050
+....................          output_b(i|0b00010000);  //The second 74138 is selected and the outputs are activated sequentially. 
+0047:  MOVF   20,W
+0048:  IORLW  10
+0049:  MOVWF  21
+004A:  MOVWF  06
+....................          delay_ms(250);  //250 ms delay 
+004B:  MOVLW  FA
+004C:  MOVWF  21
+004D:  CALL   004
+004E:  INCF   20,F
+004F:  GOTO   043
+....................       } 
+....................        
+....................       for(i=0; i<8; ++i){ 
+0050:  CLRF   20
+0051:  MOVF   20,W
+0052:  SUBLW  07
+0053:  BTFSS  03.0
+0054:  GOTO   05E
+....................          output_b(i|0b00100000);  //The third 74138 is selected and the outputs are activated sequentially. 
+0055:  MOVF   20,W
+0056:  IORLW  20
+0057:  MOVWF  21
+0058:  MOVWF  06
+....................          delay_ms(250);  //250 ms delay 
+0059:  MOVLW  FA
+005A:  MOVWF  21
+005B:  CALL   004
+005C:  INCF   20,F
+005D:  GOTO   051
+....................       } 
+....................        
+....................       for(i=0; i<8; ++i){ 
+005E:  CLRF   20
+005F:  MOVF   20,W
+0060:  SUBLW  07
+0061:  BTFSS  03.0
+0062:  GOTO   06C
+....................          output_b(i|0b00110000);  //The fourth 74138 is selected and the outputs are activated sequentially. 
+0063:  MOVF   20,W
+0064:  IORLW  30
+0065:  MOVWF  21
+0066:  MOVWF  06
+....................          delay_ms(250);  //250 ms delay 
+0067:  MOVLW  FA
+0068:  MOVWF  21
+0069:  CALL   004
+006A:  INCF   20,F
+006B:  GOTO   05F
+....................       } 
+006C:  GOTO   036
+....................    } 
+....................  
+.................... } 
+006D:  SLEEP
+
+Configuration Fuses:
+   Word  1: 3F3A   HS NOWDT NOPUT NOBROWNOUT NOLVP NOCPD NOWRT NODEBUG NOPROTECT
