@@ -1,0 +1,60 @@
+/******************************************************************************
+*Project Name: Change interrupt at B4 ... B7 pins on B port
+*Engineer: Canberk SAHIN
+*Project Microcontroller: PIC16F877
+*Version: V1
+*Create Date: 23.03.2021
+*Update Date: 23.03.2021
+*University: Bursa Technical University
+*Revision: - 
+******************************************************************************/
+#include <Change_Interrupt_PortB.h>
+
+//Port B-> RB4, RB5, RB6 and RB7 pins change interrupt function
+#int_RB
+void change_b_interrupt(void)
+{
+   if(input(pin_b4)){          //Reading RB4 pin input
+      delay_ms(10);
+      output_high(pin_b0);     //RB0 pin output is logic-1
+   }
+      
+   if(input(pin_b5)){          //Reading RB5 pin input
+      delay_ms(10);
+      output_high(pin_b1);     //RB1 pin output is logic-1
+   }
+      
+   if(input(pin_b6)){          //Reading RB6 pin input
+      delay_ms(10);
+      output_high(pin_b2);     //RB2 pin output is logic-1
+   }
+      
+   if(input(pin_b7)){          //Reading RB7 pin input
+      delay_ms(10);
+      output_high(pin_b3);     //RB3 pin output is logic-1
+   }
+      
+   delay_ms(2000);            //2 second delay
+   output_b(0x00);            //Reset all port B
+}
+
+void main()
+{
+   setup_psp(PSP_DISABLED);           //PSP unit is disabled  
+   setup_timer_1(T1_DISABLED);        //T1 unit is disabled
+   setup_timer_2(T2_DISABLED, 0, 1);  //T2 unit is disabled
+   setup_adc_ports(NO_ANALOGS);       //There is no analog input 
+   setup_adc(ADC_OFF);                //ADC unit is disabled
+   setup_CCP1(CCP_OFF);               //CCP1 unit is disabled.
+   setup_CCP2(CCP_OFF);               //CCP2 unit is disabled.
+   
+   set_tris_b(0xF0);           //RB7, RB6, RB5, RB4 input other pins output
+   output_b(0x00);             //B port output is reset at first moment
+   
+   enable_interrupts(INT_RB);  //Enables INT_RB interrupt
+   enable_interrupts(GLOBAL);  //Allows enabled interrupts
+   
+   while(TRUE)
+     ;  //Null statement
+
+}
