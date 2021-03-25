@@ -1,0 +1,23 @@
+[PROJECT]
+Target=External_Interrupt.hex
+Processor_Text=PIC16F877
+CCSVerions=5.007
+Compiler=PCM
+CCSVersion=5.007
+[Target Data]
+FileList=External_Interrupt.c
+[Directories]
+Include=C:\Program Files (x86)\PICC\Devices\;C:\Program Files (x86)\PICC\Drivers\;C:\Users\canbe\OneDrive\Masaüstü\PIC_Programming_CCS(C)\External_Interrupt\PIC_C_Compiler\
+[C:\Users\canbe\OneDrive\Masaüstü\PIC_Programming_CCS(C)\External_Interrupt\PIC_C_Compiler\External_Interrupt]
+Type=4
+[mru-list]
+1=External_Interrupt.c
+[Opened Files]
+1=External_Interrupt.c
+2=
+3=
+[External_Interrupt.c]
+Type=4
+[Units]
+Count=1
+1=External_Interrupt (main)

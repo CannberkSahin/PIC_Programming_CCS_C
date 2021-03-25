@@ -1,0 +1,11 @@
+#include <External_Interrupt.h>
+
+void main()
+{
+
+	while(TRUE)
+	{
+		//TODO: User Code
+	}
+
+}
